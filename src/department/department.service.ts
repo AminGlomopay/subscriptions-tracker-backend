@@ -13,4 +13,8 @@ export class DepartmentService {
       },
     });
   }
+
+  async findAll() {
+    return this.prisma.department.findMany();
+  }
 }
