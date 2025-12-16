@@ -10,8 +10,11 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
 
+  app.enableCors();
+
   app.useGlobalPipes(new ZodValidationPipe());
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3003);
 }
+
 bootstrap();
