@@ -25,3 +25,8 @@ model Employee {
   departmentId Int
   department   Department @relation(fields: [departmentId], references: [id])
 }
+
+model CostHead {
+  id   Int    @id @default(autoincrement())
+  name String
+}
