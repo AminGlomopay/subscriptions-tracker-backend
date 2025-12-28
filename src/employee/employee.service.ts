@@ -13,9 +13,6 @@ export class EmployeeService {
         email: createEmployeeDto.email,
         departmentId: createEmployeeDto.departmentId,
       },
-      include: {
-        department: true,
-      },
     });
   }
 

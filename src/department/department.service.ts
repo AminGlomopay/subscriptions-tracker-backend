@@ -6,7 +6,7 @@ import { CreateDepartmentDto } from './dto/create-department.dto';
 export class DepartmentService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createDepartmentDto: CreateDepartmentDto) {
+  create(createDepartmentDto: CreateDepartmentDto) {
     return this.prisma.department.create({
       data: {
         name: createDepartmentDto.name,
@@ -14,7 +14,7 @@ export class DepartmentService {
     });
   }
 
-  async findAll() {
+  findAll() {
     return this.prisma.department.findMany();
   }
 }

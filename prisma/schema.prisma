@@ -16,6 +16,7 @@ model Department {
   id        Int        @id @default(autoincrement())
   name      String
   employees Employee[]
+  invoices  Invoice[]
 }
 
 model Employee {
@@ -27,14 +28,16 @@ model Employee {
 }
 
 model CostHead {
-  id   Int    @id @default(autoincrement())
-  name String
+  id       Int       @id @default(autoincrement())
+  name     String
+  invoices Invoice[]
 }
 
 model Company {
-  id      Int               @id @default(autoincrement())
-  name    String
-  vendors VendorOnCompany[]
+  id       Int               @id @default(autoincrement())
+  name     String
+  vendors  VendorOnCompany[]
+  invoices Invoice[]
 }
 
 enum VendorType {
@@ -60,6 +63,7 @@ model Vendor {
   isScrutVerified   Boolean           @default(false)
   isAgreementSigned Boolean           @default(false)
   companies         VendorOnCompany[]
+  invoices          Invoice[]
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
@@ -73,4 +77,28 @@ model VendorOnCompany {
   companyId Int
 
   @@id([vendorId, companyId])
+}
+
+model Invoice {
+  id             Int        @id @default(autoincrement())
+  invoiceNumber  String
+  invoiceDate    DateTime
+  invoiceAmount  Int
+  taxAmount      Int
+  totalAmount    Int
+  invoiceDueDate DateTime
+  vendorId       Int
+  vendor         Vendor     @relation(fields: [vendorId], references: [id])
+  costHeadId     Int
+  costHead       CostHead   @relation(fields: [costHeadId], references: [id])
+  departmentId   Int
+  department     Department @relation(fields: [departmentId], references: [id])
+  companyId      Int
+  company        Company    @relation(fields: [companyId], references: [id])
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  // TODO: Add invoice type, status (cancelled), payment details (method, date, status), payment status, mis month, document url
+
+  @@unique([vendorId, invoiceNumber])
 }

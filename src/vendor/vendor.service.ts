@@ -6,7 +6,7 @@ import { CreateVendorDto } from './dto/create-vendor.dto';
 export class VendorService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createVendorDto: CreateVendorDto) {
+  create(createVendorDto: CreateVendorDto) {
     const { companyIds, ...vendorData } = createVendorDto;
 
     return this.prisma.vendor.create({
@@ -20,25 +20,10 @@ export class VendorService {
           })),
         },
       },
-      include: {
-        companies: {
-          include: {
-            company: true,
-          },
-        },
-      },
     });
   }
 
   findAll() {
-    return this.prisma.vendor.findMany({
-      include: {
-        companies: {
-          include: {
-            company: true,
-          },
-        },
-      },
-    });
+    return this.prisma.vendor.findMany();
   }
 }

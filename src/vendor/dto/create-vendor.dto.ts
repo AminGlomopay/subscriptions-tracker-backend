@@ -19,7 +19,9 @@ const CreateVendorSchema = z.object({
   status: VendorStatusEnum.optional().default('ACTIVE'),
   isScrutVerified: z.boolean().optional().default(false),
   isAgreementSigned: z.boolean().optional().default(false),
-  companyIds: z.array(z.number()).min(1, 'At least one company must be associated with the vendor'),
+  companyIds: z
+    .array(z.number())
+    .min(1, 'At least one company must be associated with the vendor'),
 });
 
 export class CreateVendorDto extends createZodDto(CreateVendorSchema) {}
