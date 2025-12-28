@@ -32,6 +32,45 @@ model CostHead {
 }
 
 model Company {
-  id   Int    @id @default(autoincrement())
-  name String
+  id      Int               @id @default(autoincrement())
+  name    String
+  vendors VendorOnCompany[]
+}
+
+enum VendorType {
+  TECHNICAL_SUBSCRIPTION
+  NORMAL_SUBSCRIPTION
+  ONE_TIME
+  OTHERS
+}
+
+enum VendorStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Vendor {
+  id                Int               @id @default(autoincrement())
+  name              String
+  country           String
+  taxId             String            @unique
+  isTaxClaimable    Boolean           @default(false)
+  vendorType        VendorType
+  status            VendorStatus      @default(ACTIVE)
+  isScrutVerified   Boolean           @default(false)
+  isAgreementSigned Boolean           @default(false)
+  companies         VendorOnCompany[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // TODO: Add bank_details JSONB column, vendor documents upload
+}
+
+model VendorOnCompany {
+  vendor    Vendor  @relation(fields: [vendorId], references: [id])
+  vendorId  Int
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId Int
+
+  @@id([vendorId, companyId])
 }
