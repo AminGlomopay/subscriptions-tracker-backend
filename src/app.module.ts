@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { DepartmentModule } from './department/department.module';
 import { EmployeeModule } from './employee/employee.module';
 import { CostHeadModule } from './costhead/cost-head.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CostHeadModule } from './costhead/cost-head.module';
     DepartmentModule,
     EmployeeModule,
     CostHeadModule,
+    CompanyModule,
   ],
   controllers: [],
   providers: [],

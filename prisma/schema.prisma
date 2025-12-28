@@ -30,3 +30,8 @@ model CostHead {
   id   Int    @id @default(autoincrement())
   name String
 }
+
+model Company {
+  id   Int    @id @default(autoincrement())
+  name String
+}
