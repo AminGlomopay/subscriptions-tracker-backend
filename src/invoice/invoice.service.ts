@@ -7,13 +7,16 @@ export class InvoiceService {
   constructor(private prisma: PrismaService) {}
 
   async create(createInvoiceDto: CreateInvoiceDto) {
+    const totalAmount =
+      createInvoiceDto.invoiceAmount + createInvoiceDto.taxAmount;
+
     return this.prisma.invoice.create({
       data: {
         invoiceNumber: createInvoiceDto.invoiceNumber,
         invoiceDate: new Date(createInvoiceDto.invoiceDate),
         invoiceAmount: createInvoiceDto.invoiceAmount,
         taxAmount: createInvoiceDto.taxAmount,
-        totalAmount: createInvoiceDto.totalAmount,
+        totalAmount,
         invoiceDueDate: new Date(createInvoiceDto.invoiceDueDate),
         vendorId: createInvoiceDto.vendorId,
         costHeadId: createInvoiceDto.costHeadId,

@@ -12,10 +12,6 @@ const CreateInvoiceSchema = z.object({
     .number()
     .int('Tax amount must be an integer (in cents)')
     .min(0, 'Tax amount cannot be negative'),
-  totalAmount: z
-    .number()
-    .int('Total amount must be an integer (in cents)')
-    .min(0, 'Total amount cannot be negative'),
   invoiceDueDate: z.string().datetime('Invalid due date format'),
   vendorId: z.number().int().positive('Vendor ID is required'),
   costHeadId: z.number().int().positive('Cost head ID is required'),
