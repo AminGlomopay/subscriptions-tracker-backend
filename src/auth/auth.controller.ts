@@ -21,16 +21,16 @@ export class AuthController {
     @CurrentUser() user: User,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const result = await this.authService.login(user);
+    const { accessToken } = await this.authService.generateTokens(user);
 
-    res.cookie('accessToken', result.accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return result;
+    return { accessToken, user };
   }
 
   @Public()
